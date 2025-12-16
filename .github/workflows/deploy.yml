@@ -45,3 +45,15 @@ jobs:
             mirror --reverse --delete --verbose ./dist ${SFTP_PATH};
             quit
           "
+
+      - name: Purge Bunny CDN cache
+        env:
+          BUNNY_API_KEY: ${{ secrets.BUNNY_API_KEY }}
+          BUNNY_PULLZONE_ID: ${{ secrets.BUNNY_PULLZONE_ID }}
+        run: |
+          curl --request POST \
+               --url "https://api.bunny.net/pullzone/${BUNNY_PULLZONE_ID}/purgeCache" \
+               --header "accept: application/json" \
+               --header "content-type: application/json" \
+               --header "AccessKey: ${BUNNY_API_KEY}" \
+               --fail
