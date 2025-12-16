@@ -1,0 +1,47 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      - name: Deploy via SFTP
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT || '22' }}
+          SFTP_PATH: ${{ secrets.SFTP_PATH }}
+        run: |
+          # Install lftp (available in Ubuntu repos, no third-party action needed)
+          sudo apt-get update && sudo apt-get install -y lftp
+
+          # Deploy using lftp's mirror command
+          lftp -c "
+            set sftp:auto-confirm yes;
+            set ssl:verify-certificate no;
+            open -u ${SFTP_USER},${SFTP_PASSWORD} -p ${SFTP_PORT:-22} sftp://${SFTP_HOST};
+            mirror --reverse --delete --verbose ./dist ${SFTP_PATH};
+            quit
+          "
