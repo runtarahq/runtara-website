@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Runtara — Durable Execution Engine</title>
+		<meta name="description" content="Workflows compile to native binaries. Checkpoint state. Resume anywhere. Run on bare metal, embedded devices or cloud." />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="grid-bg"></div>
+		<div class="orb"></div>
+
+		<div class="container">
+			<header>
+				<a href="/" class="logo"><img src="/runtara-final.svg" alt="Runtara" class="logo-img" /></a>
+			</header>
+
+			<section class="hero">
+				<div class="hero-tag fade-in">coming soon</div>
+				<h1 class="fade-in fade-in-delay-1">
+					Durable execution.<br />
+					<span>Compiled to native.</span>
+				</h1>
+				<p class="hero-sub fade-in fade-in-delay-2">
+					Workflows compile to native binaries. Checkpoint state.
+					Resume anywhere. Run on bare metal, embedded devices or cloud.
+				</p>
+				<div class="cta-group fade-in fade-in-delay-3">
+					<a href="https://tally.so/r/81qE5o" class="btn btn-primary">join waitlist</a>
+				</div>
+			</section>
+
+			<section class="features" id="features">
+				<div class="features-grid fade-in fade-in-delay-4">
+					<div class="feature">
+						<div class="feature-icon">⚡</div>
+						<h3>native compilation</h3>
+						<p>JSON workflows compile directly to native binaries. No interpreter overhead.</p>
+					</div>
+					<div class="feature">
+						<div class="feature-icon">🔄</div>
+						<h3>durable checkpoints</h3>
+						<p>Snapshot execution state. Resume from any checkpoint. Survive crashes and restarts.</p>
+					</div>
+					<div class="feature">
+						<div class="feature-icon">☁️</div>
+						<h3>run anywhere</h3>
+						<p>Deploy on dedicated servers, cloud VMs, or edge. Same runtime, any environment.</p>
+					</div>
+					<div class="feature">
+						<div class="feature-icon">🔧</div>
+						<h3>deterministic replay</h3>
+						<p>Same inputs, same outputs. Debug and test with confidence.</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="code-section">
+				<div class="code-block">
+					<div class="code-header">
+						<div class="code-dot"></div>
+						<div class="code-dot"></div>
+						<div class="code-dot"></div>
+					</div>
+					<pre><span class="comment">// define workflow</span>
+{"{"}
+  <span class="string">"name"</span>: <span class="string">"sync_order"</span>,
+  <span class="string">"steps"</span>: [
+    {"{"} <span class="string">"id"</span>: <span class="string">"fetch"</span>, <span class="string">"type"</span>: <span class="string">"http"</span> {"}"},
+    {"{"} <span class="string">"id"</span>: <span class="string">"transform"</span>, <span class="string">"type"</span>: <span class="string">"map"</span> {"}"},
+    {"{"} <span class="string">"id"</span>: <span class="string">"push"</span>, <span class="string">"type"</span>: <span class="string">"http"</span> {"}"}
+  ]
+{"}"}
+
+<span class="comment">// compiles to native → checkpoint after each step</span></pre>
+				</div>
+			</section>
+
+			<section class="stats">
+				<div>
+					<div class="stat-value">50x</div>
+					<div class="stat-label">faster execution</div>
+				</div>
+				<div>
+					<div class="stat-value">~1ms</div>
+					<div class="stat-label">per step</div>
+				</div>
+				<div>
+					<div class="stat-value">0</div>
+					<div class="stat-label">interpreter overhead</div>
+				</div>
+			</section>
+
+			<footer>
+				<p class="footer-text">
+					runtara — durable execution engine
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>
