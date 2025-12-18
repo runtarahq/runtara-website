@@ -11,7 +11,7 @@ Welcome to Runtara documentation. This guide will help you get started with buil
 
 ## What is Runtara?
 
-Runtara is a workflow engine that compiles your workflows directly to native binaries. No interpreter overhead, no runtime dependencies - just fast, deterministic execution.
+Runtara is a workflow engine that compiles your workflows directly to native binaries. No interpreter overhead, minimal runtime dependencies, and fast, deterministic execution.
 
 ## Key Features
 
