@@ -11,8 +11,9 @@ export default defineConfig({
   site: 'https://runtara.com',
   integrations: [sitemap(), pagefind()],
   build: {
-    format: 'file'
+    format: 'directory'
   },
+  trailingSlash: 'ignore',
   vite: {
     plugins: [tailwindcss()]
   }
