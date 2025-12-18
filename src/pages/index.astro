@@ -1,33 +1,22 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Runtara — Bare-Metal Workflows</title>
-		<meta name="description" content="Workflows compile to native binaries. Run on bare metal, embedded devices or cloud." />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-		<!-- Privacy-friendly analytics by Plausible -->
-		<script is:inline async src="https://plausible.io/js/pa-jHbiusDvcDmxdfDnS6mRe.js"></script>
-		<script is:inline>
-			window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-			plausible.init()
-		</script>
-	</head>
-	<body>
-		<div class="grid-bg"></div>
-		<div class="orb"></div>
+<BaseLayout title="Runtara — Bare-Metal Workflows">
+	<div class="grid-bg"></div>
+	<div class="orb"></div>
 
-		<div class="container">
-			<header>
-				<a href="/" class="logo"><img src="/runtara-final.svg" alt="Runtara" class="logo-img" /></a>
-			</header>
+	<div class="container">
+		<header>
+			<a href="/" class="logo"><img src="/runtara-final.svg" alt="Runtara" class="logo-img" /></a>
+			<div class="header-right">
+				<nav class="nav-links">
+					<a href="/docs/getting-started">Docs</a>
+				</nav>
+				<ThemeToggle />
+			</div>
+		</header>
 
 			<section class="hero">
 				<h1 class="fade-in fade-in-delay-1">
@@ -152,6 +141,4 @@ import '../styles/global.css';
 				</p>
 			</footer>
 		</div>
-
-	</body>
-</html>
+</BaseLayout>

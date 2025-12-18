@@ -1,0 +1,51 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import DocsSidebar from '../components/DocsSidebar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={`${title} | Runtara Docs`} description={description}>
+  <Header />
+  <div class="docs-layout">
+    <DocsSidebar />
+    <main class="docs-content" data-pagefind-body>
+      <article class="prose">
+        <slot />
+      </article>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: calc(100vh - 57px);
+  }
+
+  .docs-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem 3rem;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .prose {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      margin-left: 0;
+      padding: 1.5rem;
+    }
+  }
+</style>
