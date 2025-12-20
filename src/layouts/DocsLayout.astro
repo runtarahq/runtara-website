@@ -49,3 +49,85 @@ const { title, description } = Astro.props;
     }
   }
 </style>
+
+<script>
+  // Wrap code blocks with header containing filename and copy button
+  document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('.prose pre');
+
+    // Map language to display name
+    const langConfig: Record<string, string> = {
+      rust: 'example.rs',
+      javascript: 'example.js',
+      typescript: 'example.ts',
+      python: 'example.py',
+      go: 'example.go',
+      yaml: 'config.yaml',
+      json: 'config.json',
+      toml: 'config.toml',
+      bash: 'Terminal',
+      shell: 'Terminal',
+      sh: 'Terminal',
+      text: 'Terminal',
+      plaintext: 'Terminal',
+    };
+
+    codeBlocks.forEach((pre) => {
+      // Skip if already wrapped
+      if (pre.parentElement?.classList.contains('code-block')) return;
+
+      // Get language from class on pre element (Shiki adds it there)
+      const code = pre.querySelector('code');
+      const langClass = pre.className.match(/language-(\w+)/) ||
+                        pre.getAttribute('data-language') ||
+                        code?.className.match(/language-(\w+)/);
+      const lang = Array.isArray(langClass) ? langClass[1] : (langClass || 'text');
+
+      const displayName = langConfig[lang] || `example.${lang}`;
+
+      // Create wrapper
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+
+      // Create header
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
+
+      // Filename
+      const filename = document.createElement('span');
+      filename.className = 'code-block-filename';
+      filename.textContent = displayName;
+
+      header.appendChild(filename);
+
+      // Copy button
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'code-block-copy';
+      copyBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span>copy</span>
+      `;
+
+      copyBtn.addEventListener('click', async () => {
+        const text = code?.textContent || '';
+        await navigator.clipboard.writeText(text);
+        copyBtn.classList.add('copied');
+        copyBtn.querySelector('span')!.textContent = 'copied!';
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyBtn.querySelector('span')!.textContent = 'copy';
+        }, 2000);
+      });
+
+      header.appendChild(copyBtn);
+
+      // Wrap pre element
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+    });
+  });
+</script>
