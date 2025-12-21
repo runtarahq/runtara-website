@@ -1,11 +1,11 @@
 ---
-title: Introduction
+title: Overview
 description: Get started with Runtara - durable workflows compiled to native binaries
-section: Getting Started
+section: Overview
 order: 1
 ---
 
-# Introduction
+# Overview
 
 Welcome to Runtara documentation. This guide will help you get started with building durable workflows that compile to native binaries.
 
@@ -20,11 +20,9 @@ Runtara is a workflow engine that compiles your workflows directly to native bin
 - **Run Anywhere** - Deploy on dedicated servers, cloud VMs, or edge devices
 - **Deterministic Replay** - Same inputs always produce the same outputs
 
-## Next Steps
+## Documentation Sections
 
-Explore the documentation to learn more about:
-
-- Setting up your first workflow
-- Understanding step types
-- Working with agents
-- Real-world examples
+- [Durable Execution](/docs/durable-execution) - Learn how to make your code resilient to failures
+- [Distributed Durable Execution](/docs/distributed-durable-execution) - Scale across multiple nodes and regions
+- [Managed Runtime Environments](/docs/managed-runtime-environments) - Deploy with zero operational overhead
+- [Durable Workflows](/docs/durable-workflows) - Build complex multi-step processes

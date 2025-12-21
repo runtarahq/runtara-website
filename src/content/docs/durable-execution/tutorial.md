@@ -1,25 +1,13 @@
 ---
 title: Tutorial
 description: A step-by-step tutorial for using Runtara to create durable programs.
-section: Getting Started
-order: 1
+section: Durable Execution
+order: 2
 ---
 
-## The Problem with Distributed Systems
+# Tutorial
 
-Software development used to be simpler. You wrote code, added basic error handling, and it worked. But as systems became distributed and integrated with third-party services, a new challenge emerged: handling edge cases reliably.
-
-Consider what happens when an external service is unavailable—perhaps it's overloaded or rate-limiting requests. You need to retry. You need to retry *later*. This means extending your code with guards, checks, and conditionals that have nothing to do with your actual business logic. They're workarounds for the inherent unreliability of distributed systems.
-
-This turns software development into a tedious process where the happy path gets buried under defensive code.
-
-## A Better Approach: Durable Execution
-
-Instead of polluting your code with protective checks, you can use a **durable execution engine**. This external system ensures that:
-
-- Your code retries automatically when needed
-- If execution interrupts, it continues exactly where it stopped
-- Your codebase stays clean and focused on business logic
+This tutorial walks you through adding durability to your code with Runtara.
 
 ## Understanding the Problem
 
@@ -65,7 +53,9 @@ The key difference is the `idempotency_key` parameter. This ensures that:
 - Retries don't execute the same operation multiple times
 - Results can be cached for efficiency, especially useful for large data transfers
 
-By default, Runtara will retry 3 times, with exponential backoff strategy starting with 1 second delay. This behavior can be customized, by configuring the `#durable` macro:
+## Configuring Retry Behavior
+
+By default, Runtara will retry 3 times, with exponential backoff strategy starting with 1 second delay. This behavior can be customized by configuring the `#[durable]` macro:
 
 ```rust
 #[durable(max_retries = 5, delay = 100)]
@@ -80,4 +70,20 @@ async fn fetch_data(key: &str) -> Result<String, Box<dyn std::error::Error>> {
 }
 ```
 
-In example above, there will be 5 retries with the initial delay of 100ms.
+In the example above, there will be 5 retries with the initial delay of 100ms.
+
+## What Happens Under the Hood
+
+When you use the `#[durable]` macro, Runtara:
+
+1. **Wraps your function** with retry and checkpointing logic
+2. **Tracks execution state** so it can resume after failures
+3. **Caches results** based on the idempotency key
+4. **Handles retries** with exponential backoff
+
+Your code stays clean while Runtara handles the complexity of distributed systems.
+
+## Next Steps
+
+- Learn about [Distributed Durable Execution](/docs/distributed-durable-execution) for multi-node scenarios
+- Explore [Durable Workflows](/docs/durable-workflows) for complex multi-step processes
