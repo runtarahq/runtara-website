@@ -36,6 +36,7 @@ const codeExample = `{
 <BaseLayout title="Runtara — Secure AI Agent Orchestration" description="Open-source platform that compiles AI agent workflows to sandboxed WebAssembly. Durable execution with checkpoint-based crash recovery and credential isolation.">
 	<div class="grid-bg"></div>
 	<div class="orb"></div>
+	<div class="orb orb-2"></div>
 
 	<div class="container">
 		<header>
@@ -68,7 +69,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="problem">
+		<section class="problem" data-reveal>
 			<h2 class="section-title">AI agents are powerful.<br /><span>We make them safe.</span></h2>
 			<div class="problem-grid">
 				<div class="problem-item">
@@ -90,7 +91,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="features" id="features">
+		<section class="features" id="features" data-reveal>
 			<h2 class="section-title">How Runtara solves it</h2>
 			<div class="features-grid">
 				<div class="feature">
@@ -120,7 +121,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="code-section">
+		<section class="code-section" data-reveal>
 			<h2 class="section-title">Define agent workflows as data</h2>
 			<p class="section-sub">JSON DSL compiles to sandboxed WASM. Tools are graph edges. Credentials stay server-side.</p>
 			<div class="code-editor">
@@ -138,7 +139,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="how-it-works">
+		<section class="how-it-works" data-reveal>
 			<h2 class="section-title">How it works</h2>
 			<div class="flow-grid">
 				<div class="flow-step">
@@ -174,7 +175,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="comparison">
+		<section class="comparison" data-reveal>
 			<h2 class="section-title">How Runtara compares</h2>
 			<div class="comparison-table-wrapper">
 				<table class="comparison-table">
@@ -228,7 +229,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="use-cases">
+		<section class="use-cases" data-reveal>
 			<h2 class="section-title">Built for real workloads</h2>
 			<div class="use-cases-grid">
 				<div class="use-case">
@@ -250,7 +251,7 @@ const codeExample = `{
 			</div>
 		</section>
 
-		<section class="final-cta">
+		<section class="final-cta" data-reveal>
 			<h2>Ready to run AI agents securely?</h2>
 			<p>Open-source. Self-hosted or cloud. Written in Rust.</p>
 			<div class="cta-group">
@@ -270,4 +271,17 @@ const codeExample = `{
 			</p>
 		</footer>
 	</div>
+
+	<script>
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('revealed');
+					observer.unobserve(entry.target);
+				}
+			});
+		}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+		document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+	</script>
 </BaseLayout>
