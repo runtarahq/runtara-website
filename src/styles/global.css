@@ -159,6 +159,18 @@ header {
     gap: 1rem;
 }
 
+/* Header GitHub link */
+.header-github {
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.header-github:hover {
+    color: var(--color-text-primary);
+}
+
 /* Hero */
 .hero {
     padding: 8rem 0 6rem;
@@ -294,6 +306,7 @@ header {
 /* Code Editor */
 .code-section {
     padding: 6rem 0;
+    border-top: 1px solid var(--color-border);
 }
 
 .code-editor {
@@ -375,29 +388,202 @@ pre .attribute {
     color: var(--color-code-attribute);
 }
 
-/* Stats */
-.stats {
-    padding: 4rem 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+/* Section titles */
+.section-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 3rem;
     text-align: center;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
 }
 
-.stat-value {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-accent);
+.section-title span {
+    color: var(--color-text-secondary);
+}
+
+.section-sub {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    max-width: 600px;
+    margin: -1.5rem auto 3rem;
+    font-weight: 300;
+}
+
+/* Problem */
+.problem {
+    padding: 6rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+}
+
+.problem-item {
+    background: var(--color-bg-primary);
+    padding: 2rem;
+}
+
+.problem-item h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
     margin-bottom: 0.5rem;
 }
 
-.stat-label {
-    font-size: 0.75rem;
+.problem-item p {
+    font-size: 0.8rem;
     color: var(--color-text-secondary);
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* How it works */
+.how-it-works {
+    padding: 6rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.flow-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+}
+
+.flow-step {
+    background: var(--color-bg-primary);
+    padding: 2rem;
+}
+
+.flow-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+}
+
+.flow-step h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.flow-step p {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* Comparison */
+.comparison {
+    padding: 6rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 0.875rem 1.25rem;
+    text-align: left;
+    border: 1px solid var(--color-border);
+}
+
+.comparison-table th {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
+}
+
+.comparison-table th.highlight {
+    color: var(--color-accent);
+}
+
+.comparison-table .row-label {
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.comparison-table td.highlight {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+/* Use cases */
+.use-cases {
+    padding: 6rem 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+}
+
+.use-case {
+    background: var(--color-bg-primary);
+    padding: 2rem;
+}
+
+.use-case h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.use-case p {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* Final CTA */
+.final-cta {
+    padding: 6rem 0;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+}
+
+.final-cta h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+}
+
+.final-cta p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
 }
 
 /* Footer */
@@ -474,6 +660,36 @@ footer {
 
     .code-editor-body {
         padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .problem-grid,
+    .use-cases-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-table {
+        font-size: 0.7rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.625rem 0.75rem;
+    }
+
+    .problem,
+    .how-it-works,
+    .comparison,
+    .use-cases,
+    .final-cta {
+        padding: 4rem 0;
     }
 }
 

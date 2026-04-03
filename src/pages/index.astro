@@ -1,9 +1,39 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+
+const codeExample = `{
+  <span class="keyword">"name"</span>: <span class="string">"support-agent"</span>,
+  <span class="keyword">"steps"</span>: [
+    {
+      <span class="keyword">"id"</span>: <span class="string">"triage"</span>,
+      <span class="keyword">"type"</span>: <span class="type">"AiAgent"</span>,
+      <span class="keyword">"connection"</span>: <span class="string">"conn_openai_gpt4o"</span>,
+      <span class="keyword">"systemPrompt"</span>: <span class="string">"Triage tickets. Look up customers and issue refunds."</span>,
+      <span class="keyword">"maxIterations"</span>: <span class="number">10</span>
+    },
+    {
+      <span class="keyword">"id"</span>: <span class="string">"lookup_customer"</span>,
+      <span class="keyword">"type"</span>: <span class="type">"Http"</span>,
+      <span class="keyword">"connection"</span>: <span class="string">"conn_crm"</span>,
+      <span class="keyword">"url"</span>: <span class="string">"/customers/:id"</span>
+    },
+    {
+      <span class="keyword">"id"</span>: <span class="string">"issue_refund"</span>,
+      <span class="keyword">"type"</span>: <span class="type">"Http"</span>,
+      <span class="keyword">"connection"</span>: <span class="string">"conn_stripe"</span>,
+      <span class="keyword">"method"</span>: <span class="string">"POST"</span>,
+      <span class="keyword">"url"</span>: <span class="string">"/v1/refunds"</span>
+    }
+  ],
+  <span class="keyword">"edges"</span>: [
+    { <span class="keyword">"from"</span>: <span class="string">"triage"</span>, <span class="keyword">"to"</span>: <span class="string">"lookup_customer"</span>, <span class="keyword">"label"</span>: <span class="string">"lookup_customer"</span> },
+    { <span class="keyword">"from"</span>: <span class="string">"triage"</span>, <span class="keyword">"to"</span>: <span class="string">"issue_refund"</span>, <span class="keyword">"label"</span>: <span class="string">"issue_refund"</span> }
+  ]
+}`;
 ---
 
-<BaseLayout title="Runtara — Bare-Metal Workflows">
+<BaseLayout title="Runtara — Secure AI Agent Orchestration" description="Open-source platform that compiles AI agent workflows to sandboxed WebAssembly. Durable execution with checkpoint-based crash recovery and credential isolation.">
 	<div class="grid-bg"></div>
 	<div class="orb"></div>
 
@@ -11,134 +41,233 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 		<header>
 			<a href="/" class="logo"><img src="/runtara-final.svg" alt="Runtara" class="logo-img" /></a>
 			<div class="header-right">
-				<nav class="nav-links">
-					<a href="/docs/overview">Docs</a>
-				</nav>
+				<a href="https://github.com/runtarahq/runtara" class="header-github" aria-label="GitHub">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+					</svg>
+				</a>
 				<ThemeToggle />
 			</div>
 		</header>
 
-			<section class="hero">
-				<h1 class="fade-in fade-in-delay-1">
-					Durable workflows.<br />
-					<span>Compiled to native.</span>
-				</h1>
-				<p class="hero-sub fade-in fade-in-delay-2">
-					Run on bare metal, embedded devices or cloud.
-				</p>
-				<div class="cta-group fade-in fade-in-delay-3">
-					<a href="https://tally.so/r/81qE5o" class="btn btn-primary">Runtara Cloud</a>
-					<a href="https://github.com/runtarahq/runtara" class="btn btn-secondary">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-						</svg>
-						GitHub
-					</a>
+		<section class="hero">
+			<h1 class="fade-in fade-in-delay-1">
+				Run AI agents securely.<br />
+			</h1>
+			<p class="hero-sub fade-in fade-in-delay-2">
+				AI agent orchestration on WebAssembly.
+			</p>
+			<div class="cta-group fade-in fade-in-delay-3">
+				<a href="https://tally.so/r/81qE5o" class="btn btn-primary">Runtara Cloud</a>
+				<a href="https://github.com/runtarahq/runtara" class="btn btn-secondary">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+					</svg>
+					GitHub
+				</a>
+			</div>
+		</section>
+
+		<section class="problem">
+			<h2 class="section-title">AI agents are powerful.<br /><span>We make them safe.</span></h2>
+			<div class="problem-grid">
+				<div class="problem-item">
+					<h3>credential leaks</h3>
+					<p>Agents with tool access need API keys. A prompt injection or misbehaving agent can exfiltrate secrets and make unauthorized calls.</p>
 				</div>
-			</section>
-
-			<section class="features" id="features">
-				<div class="features-grid fade-in fade-in-delay-4">
-					<div class="feature">
-						<div class="feature-icon">⚡</div>
-						<h3>native compilation</h3>
-						<p>JSON workflows compile directly to native binaries. No interpreter overhead.</p>
-					</div>
-					<div class="feature">
-						<div class="feature-icon">🔄</div>
-						<h3>durable checkpoints</h3>
-						<p>Snapshot execution state. Resume from any checkpoint. Survive crashes and restarts.</p>
-					</div>
-					<div class="feature">
-						<div class="feature-icon">☁️</div>
-						<h3>run anywhere</h3>
-						<p>Deploy on dedicated servers, cloud VMs, or edge. Same runtime, any environment.</p>
-					</div>
-					<div class="feature">
-						<div class="feature-icon">🔧</div>
-						<h3>deterministic replay</h3>
-						<p>Same inputs, same outputs. Debug and test with confidence.</p>
-					</div>
+				<div class="problem-item">
+					<h3>lost context on crash</h3>
+					<p>Multi-turn agentic loops are long-running and fragile. A crash mid-loop loses all context, wastes tokens, and leaves inconsistent state.</p>
 				</div>
-			</section>
+				<div class="problem-item">
+					<h3>idle resource waste</h3>
+					<p>Agents sleeping between steps — waiting for approvals or scheduling future actions — hold processes and resources open for the entire duration.</p>
+				</div>
+				<div class="problem-item">
+					<h3>tenant cross-contamination</h3>
+					<p>Running agents for different customers on shared runtimes creates data leaks most workflow engines don't address.</p>
+				</div>
+			</div>
+		</section>
 
-			<section class="code-section">
-				<div class="code-editor">
-					<div class="code-editor-titlebar">
-						<div class="code-dots">
-							<div class="code-dot"></div>
-							<div class="code-dot"></div>
-							<div class="code-dot"></div>
-						</div>
-						<span class="code-editor-filename">main.rs</span>
+		<section class="features" id="features">
+			<h2 class="section-title">How Runtara solves it</h2>
+			<div class="features-grid">
+				<div class="feature">
+					<h3>WASM-sandboxed agents</h3>
+					<p>Workflows compile to WebAssembly and run in wasmtime. No filesystem, no raw network, no credential access. The sandbox enforces what agents can and cannot do.</p>
+				</div>
+				<div class="feature">
+					<h3>credential isolation</h3>
+					<p>API keys live in the connection service. A host proxy injects them at request time. Even a compromised agent cannot exfiltrate secrets.</p>
+				</div>
+				<div class="feature">
+					<h3>crash-proof agentic loops</h3>
+					<p>Every tool call is checkpointed. Crashes resume from the last step with full conversation history intact. No repeated API calls, no wasted tokens.</p>
+				</div>
+				<div class="feature">
+					<h3>compiled, not interpreted</h3>
+					<p>JSON workflows compile to WASM modules — immutable, versioned artifacts. Zero interpreter overhead, smaller attack surface than scripted engines.</p>
+				</div>
+				<div class="feature">
+					<h3>tenant isolation</h3>
+					<p>Each customer gets a fully isolated environment — own database, credentials, and runtime. No shared state, no cross-tenant risks.</p>
+				</div>
+				<div class="feature">
+					<h3>durable sleep</h3>
+					<p>Agents waiting for approvals or external events release all resources. The engine wakes them automatically when it's time — hours or days later.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="code-section">
+			<h2 class="section-title">Define agent workflows as data</h2>
+			<p class="section-sub">JSON DSL compiles to sandboxed WASM. Tools are graph edges. Credentials stay server-side.</p>
+			<div class="code-editor">
+				<div class="code-editor-titlebar">
+					<div class="code-dots">
+						<div class="code-dot"></div>
+						<div class="code-dot"></div>
+						<div class="code-dot"></div>
 					</div>
-					<div class="code-editor-body">
-						<pre><span class="keyword">use</span> runtara_sdk::{"{"}RuntaraSdk, durable{"}"};
-<span class="keyword">use</span> serde::{"{"}Deserialize, Serialize{"}"};
-
-<span class="attribute">#[derive(Debug, Clone, Serialize, Deserialize)]</span>
-<span class="keyword">pub struct</span> <span class="type">Order</span> {"{"}
-    <span class="keyword">pub</span> id: <span class="type">String</span>,
-    <span class="keyword">pub</span> customer_name: <span class="type">String</span>,
-    <span class="keyword">pub</span> total: <span class="type">f64</span>,
-{"}"}
-
-<span class="comment">/// Fetch an order - first arg is idempotency key</span>
-<span class="attribute">#[durable]</span>
-<span class="keyword">pub async fn</span> <span class="function">get_order</span>(key: &amp;<span class="type">str</span>, order_id: &amp;<span class="type">str</span>) -&gt; <span class="type">Result</span>&lt;<span class="type">Order</span>, <span class="type">AppError</span>&gt; {"{"}
-    tokio::time::sleep(Duration::from_millis(<span class="number">100</span>)).<span class="keyword">await</span>;
-    <span class="keyword">Ok</span>(<span class="type">Order</span> {"{"}
-        id: order_id.to_string(),
-        customer_name: <span class="function">format!</span>(<span class="string">"Customer for {}"</span>, order_id),
-        total: <span class="number">99.99</span>,
-    {"}"})
-{"}"}
-
-<span class="comment">/// Process payment - idempotent via the key</span>
-<span class="attribute">#[durable]</span>
-<span class="keyword">pub async fn</span> <span class="function">process_payment</span>(key: &amp;<span class="type">str</span>, amount: <span class="type">f64</span>) -&gt; <span class="type">Result</span>&lt;<span class="type">String</span>, <span class="type">AppError</span>&gt; {"{"}
-    <span class="keyword">Ok</span>(<span class="function">format!</span>(<span class="string">"txn-{}"</span>, <span class="type">Uuid</span>::new_v4()))
-{"}"}
-
-<span class="attribute">#[tokio::main]</span>
-<span class="keyword">async fn</span> <span class="function">main</span>() -&gt; <span class="type">Result</span>&lt;(), <span class="type">Box</span>&lt;<span class="keyword">dyn</span> <span class="type">Error</span>&gt;&gt; {"{"}
-    <span class="type">RuntaraSdk</span>::localhost(<span class="string">"example-1"</span>, <span class="string">"demo"</span>)?
-        .init(<span class="type">None</span>).<span class="keyword">await</span>?;
-
-    <span class="comment">// First call - executes and caches</span>
-    <span class="keyword">let</span> order = <span class="function">get_order</span>(<span class="string">"order-123"</span>, <span class="string">"123"</span>).<span class="keyword">await</span>?;
-
-    <span class="comment">// Second call with same key - returns cached</span>
-    <span class="keyword">let</span> order2 = <span class="function">get_order</span>(<span class="string">"order-123"</span>, <span class="string">"123"</span>).<span class="keyword">await</span>?;
-
-    <span class="comment">// Payment</span>
-    <span class="keyword">let</span> txn = <span class="function">process_payment</span>(<span class="string">"pay-123"</span>, <span class="number">99.99</span>).<span class="keyword">await</span>?;
-
-    <span class="keyword">Ok</span>(())
-{"}"}</pre>
-					</div>
+					<span class="code-editor-filename">support-agent.json</span>
 				</div>
-			</section>
+				<div class="code-editor-body">
+					<pre set:html={codeExample}></pre>
+				</div>
+			</div>
+		</section>
 
-			<section class="stats">
-				<div>
-					<div class="stat-value">50x</div>
-					<div class="stat-label">faster execution</div>
+		<section class="how-it-works">
+			<h2 class="section-title">How it works</h2>
+			<div class="flow-grid">
+				<div class="flow-step">
+					<div class="flow-number">1</div>
+					<h3>define</h3>
+					<p>Write agent workflows as JSON DSL with steps, tools, and connections.</p>
 				</div>
-				<div>
-					<div class="stat-value">~1ms</div>
-					<div class="stat-label">per step</div>
+				<div class="flow-step">
+					<div class="flow-number">2</div>
+					<h3>compile</h3>
+					<p>Build to a standalone WASM module — immutable, versioned, reproducible.</p>
 				</div>
-				<div>
-					<div class="stat-value">0</div>
-					<div class="stat-label">interpreter overhead</div>
+				<div class="flow-step">
+					<div class="flow-number">3</div>
+					<h3>sandbox</h3>
+					<p>Run in wasmtime. No filesystem, no raw network. All I/O mediated by the host.</p>
 				</div>
-			</section>
+				<div class="flow-step">
+					<div class="flow-number">4</div>
+					<h3>execute</h3>
+					<p>AI agent calls tools via host proxy. Credentials injected at request time, invisible to agent code.</p>
+				</div>
+				<div class="flow-step">
+					<div class="flow-number">5</div>
+					<h3>checkpoint</h3>
+					<p>After each tool call: conversation history, tool results, and iteration count saved to database.</p>
+				</div>
+				<div class="flow-step">
+					<div class="flow-number">6</div>
+					<h3>recover</h3>
+					<p>Crash at any point? Relaunch from last checkpoint. No lost context, no repeated calls.</p>
+				</div>
+			</div>
+		</section>
 
-			<footer>
-				<p class="footer-text">
-					runtara — native workflows platform
-				</p>
-			</footer>
-		</div>
+		<section class="comparison">
+			<h2 class="section-title">How Runtara compares</h2>
+			<div class="comparison-table-wrapper">
+				<table class="comparison-table">
+					<thead>
+						<tr>
+							<th></th>
+							<th class="highlight">Runtara</th>
+							<th>LangGraph</th>
+							<th>CrewAI</th>
+							<th>Temporal + LLM</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="row-label">Agent isolation</td>
+							<td class="highlight">WASM sandbox (enforced)</td>
+							<td>Optional (Pyodide)</td>
+							<td>Docker (optional)</td>
+							<td>Process-level</td>
+						</tr>
+						<tr>
+							<td class="row-label">Credential security</td>
+							<td class="highlight">Proxy injection</td>
+							<td>Manual</td>
+							<td>Manual</td>
+							<td>Manual</td>
+						</tr>
+						<tr>
+							<td class="row-label">Crash recovery</td>
+							<td class="highlight">Per-tool checkpoint</td>
+							<td>Optional checkpoint</td>
+							<td>Task replay</td>
+							<td>Event sourcing</td>
+						</tr>
+						<tr>
+							<td class="row-label">Tenant isolation</td>
+							<td class="highlight">Dedicated env</td>
+							<td>Application-level</td>
+							<td>Enterprise only</td>
+							<td>Namespaces</td>
+						</tr>
+						<tr>
+							<td class="row-label">Runtime</td>
+							<td class="highlight">Compiled WASM</td>
+							<td>Python / JS/TS</td>
+							<td>Python</td>
+							<td>Multi-language</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section class="use-cases">
+			<h2 class="section-title">Built for real workloads</h2>
+			<div class="use-cases-grid">
+				<div class="use-case">
+					<h3>autonomous support agents</h3>
+					<p>LLM triages tickets, looks up customer data, takes actions. Checkpoints after each step. Survives deploys without losing conversation state.</p>
+				</div>
+				<div class="use-case">
+					<h3>approval workflows with AI</h3>
+					<p>AI analyzes a request, produces a recommendation, sleeps until human approval — days later, resumes from checkpoint and executes the decision.</p>
+				</div>
+				<div class="use-case">
+					<h3>secure third-party AI</h3>
+					<p>Run customer-provided AI logic in WASM sandboxes within dedicated per-customer environments. No access to other tenants' data or credentials.</p>
+				</div>
+				<div class="use-case">
+					<h3>multi-agent collaboration</h3>
+					<p>Chain AI agent steps — one analyzes, one plans, one executes — each with different LLM providers and tool sets, all checkpointed independently.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="final-cta">
+			<h2>Ready to run AI agents securely?</h2>
+			<p>Open-source. Self-hosted or cloud. Written in Rust.</p>
+			<div class="cta-group">
+				<a href="https://tally.so/r/81qE5o" class="btn btn-primary">Runtara Cloud</a>
+			<a href="https://github.com/runtarahq/runtara" class="btn btn-secondary">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+					</svg>
+					GitHub
+				</a>
+			</div>
+		</section>
+
+		<footer>
+			<p class="footer-text">
+				runtara — secure AI agent orchestration platform
+			</p>
+		</footer>
+	</div>
 </BaseLayout>
