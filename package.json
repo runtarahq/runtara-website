@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test:e2e": "npm run build && playwright test",
+    "test:a11y": "npm run build && playwright test tests/accessibility.spec.ts",
     "astro": "astro"
   },
   "dependencies": {
@@ -16,6 +18,8 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "@playwright/test": "^1.59.1",
     "playwright": "^1.57.0"
   }
 }
