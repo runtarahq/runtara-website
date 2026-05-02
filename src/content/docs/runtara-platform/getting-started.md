@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-description: "Take a first tour of the Runtara Platform app, navigation model, and example data."
+description: "Take a first tour of the Runtara Platform app, navigation model, and core product areas."
 section: "Runtara Platform"
 order: 2
 product: "runtara-platform"
@@ -14,13 +14,16 @@ Runtara is organized around workflows, operational data, integrations, and repor
 
 ## First Tour
 
-The example organization shown in this guide includes sample operational data:
+When you sign in, start from the sidebar. The main areas are organized around the work required to build and operate automations:
 
-- Workflow folders such as Customer Operations, Commerce Operations, Executive Reporting, Data Operations, and Platform Operations.
-- Demo workflows such as Customer Support AI Triage, Daily Executive Digest, and Order Fulfillment Exception Triage.
-- Reports such as Category Performance Breakdown, Vendor Performance Trends, Inventory Risk Monitor, and Executive Inventory Cockpit.
-- Connections for demo OpenAI, Shopify, Slack, AWS Bedrock, and file storage integrations.
-- Object-model data for catalog, inventory, suppliers, warehouse stock, and support knowledge articles.
+- Workflows define the automation logic.
+- Triggers decide when workflows start.
+- Connections provide access to external systems and providers.
+- Database stores structured operational data used by workflows and reports.
+- Files holds uploaded, generated, imported, and exported assets.
+- Reports present operational data for review.
+- Invocation History shows what ran and where to inspect failures.
+- Analytics summarizes usage, system behavior, and rate limits.
 
 ## Navigate the App
 
@@ -37,7 +40,7 @@ Use the sidebar to move between product areas:
 
 Workflow folders appear directly under Workflows. Open a folder to focus on one operational area, or return to the root Workflows page to see the full folder structure.
 
-## Typical Workflow
+## Typical Platform Flow
 
 1. Open Workflows and choose or create a workflow.
 2. Configure workflow steps and check the Problems panel.
@@ -46,6 +49,10 @@ Workflow folders appear directly under Workflows. Open a folder to focus on one 
 5. Use Invocation History and Analytics to monitor runs.
 6. Use Reports to present the results to operators or stakeholders.
 
-## Working With Example Data
+## Where To Go Next
 
-The guide uses named examples such as Category Performance Breakdown for reports, Customer Support AI Triage for workflow runs, and CatalogProduct for object data. In your own organization, use the same product areas with your workflows, reports, and object types.
+- Use [Workflows](/docs/runtara-platform/workflows) when you need to build or inspect automation logic.
+- Use [Triggers](/docs/runtara-platform/triggers) when a workflow should run automatically.
+- Use [Connections](/docs/runtara-platform/connections) before adding steps that call external systems.
+- Use [Database](/docs/runtara-platform/database) when workflows or reports need reusable structured data.
+- Use [Invocation History](/docs/runtara-platform/invocation-history) when you need to inspect a run.

@@ -22,7 +22,7 @@ Use Create object type when you need a new reusable data shape. Define fields ca
 
 Open an object type to manage its records.
 
-![Catalog product records](/docs/runtara-platform/images/database-catalog-products.png)
+![Object records table](/docs/runtara-platform/images/database-catalog-products.png)
 
 Record screens support common data operations:
 
@@ -34,7 +34,7 @@ Record screens support common data operations:
 
 ## Using Data in Reports
 
-Reports select an object type as the source schema for blocks. For example, Category Performance Breakdown uses CatalogProduct records to chart SKU count, inventory units, list-price totals, and average price by category.
+Reports select an object type as the source schema for blocks. Chart, table, and metric blocks can group, aggregate, filter, and display fields from that object type.
 
 When a report fails because of missing fields or missing schemas, check the object type first. The report source must match an existing object type, and the report block fields must exist on that type.
 
@@ -45,6 +45,6 @@ Workflow steps can read, transform, or create object records. Use object data wh
 ## Good Practices
 
 - Use stable field names once reports or workflows depend on them.
-- Keep demo records realistic enough to expose meaningful charts and filters.
+- Confirm required fields exist before wiring an object type into reports or workflows.
 - Use imports for large updates instead of manual row creation.
 - Confirm record freshness before using a table as an operational source of truth.

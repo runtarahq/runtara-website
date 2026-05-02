@@ -12,23 +12,17 @@ Connections store reusable integration configuration for workflows, triggers, fi
 
 ![Connections list](/docs/runtara-platform/images/connections-list.png)
 
-## Connection Catalog
+## Review Connections
 
 Open Connections from the sidebar to view configured integrations. Each card shows the provider type, connection name, category, and recent request activity.
 
-The example organization shown in this guide includes:
-
-- OpenAI Demo Key
-- Shopify Demo Store
-- Slack Support Alerts
-- Demo S3 File Storage
-- AWS Bedrock Demo Credentials
+Use the list to confirm which integrations are available before wiring a workflow step or trigger to an external system. If a workflow uses the wrong connection, update the workflow or trigger configuration rather than changing a shared connection unexpectedly.
 
 ## Create a Connection
 
 Use New connection, choose a provider type, then complete the provider-specific form. Required fields vary by provider.
 
-Use descriptive names. A connection named Slack Support Alerts is easier to choose in a trigger than a generic name such as test-slack.
+Use descriptive names. A name that describes the business purpose, owner, or provider account is easier to choose in workflow and trigger configuration than a generic placeholder.
 
 ## Default File Storage
 

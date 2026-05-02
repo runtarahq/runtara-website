@@ -16,20 +16,11 @@ Reports present operational data as readable pages with text, metrics, charts, t
 
 Open Reports from the sidebar. The report list shows each report name, description, status, and update time. Open a report card to view the published report.
 
-The demo organization includes reports such as:
-
-- Vendor Performance Trends
-- Category Performance Breakdown
-- Inventory Risk Monitor
-- Catalog Operations Overview
-- Executive Inventory Cockpit
-- Warehouse Replenishment Review
-
 ## View a Report
 
 The report viewer renders the published definition. Use Refresh to re-query data. Use Print / PDF when you need a shareable artifact.
 
-![Category performance report](/docs/runtara-platform/images/report-viewer-category-performance.png)
+![Report viewer](/docs/runtara-platform/images/report-viewer-category-performance.png)
 
 Reports can include multiple block types:
 
@@ -39,9 +30,9 @@ Reports can include multiple block types:
 - Tables for detailed record review.
 - Layout sections for dashboard-style presentation.
 
-## Edit a Report
+## Create or Edit a Report
 
-Open Edit from a report page to update metadata, status, source schema, datasets, and blocks.
+Create a report from Reports, or open Edit from an existing report page to update metadata, status, source schema, datasets, and blocks.
 
 ![Report editor](/docs/runtara-platform/images/report-editor-category-performance.png)
 
@@ -50,7 +41,9 @@ The editor has two main areas:
 - Metadata and defaults: name, slug, description, status, and default schema.
 - Definition builder: semantic datasets, raw blocks, block order, filters, chart settings, and layout configuration.
 
-Use Generate starter definition when creating a report from a schema. This creates a starting point that you can refine.
+Use Generate starter definition when creating a report from a schema. This creates a starting point from the selected object type that you can refine before publishing.
+
+Before publishing, preview the report and confirm the blocks answer the intended operational question. If the report is used by a team process, keep the name, description, and status clear enough for operators to know whether it is ready to use.
 
 ## Report Blocks
 
@@ -79,5 +72,6 @@ If a report does not render:
 1. Open the report editor and confirm the default schema exists.
 2. Check each block schema and field name.
 3. Confirm the source object type has records.
-4. Use Refresh in the viewer.
-5. Check browser or server logs if validation succeeds but rendering still fails.
+4. Check filters, grouping fields, aggregate type, and value fields.
+5. Use Refresh in the viewer.
+6. Check browser or server logs if validation succeeds but rendering still fails.

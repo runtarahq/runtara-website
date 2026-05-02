@@ -16,13 +16,13 @@ Usage analytics summarize execution volume and activity over time.
 
 ![Usage analytics](/docs/runtara-platform/images/analytics-usage.png)
 
-Use this view to understand adoption, run patterns, and operational load.
+Use this view to understand adoption, run patterns, and operational load. Review it after enabling new triggers, publishing a new workflow, or onboarding a team to the platform.
 
 ## System
 
 System analytics summarize platform-level signals.
 
-Use this view when investigating whether a behavior is isolated to one workflow or part of a broader system issue.
+Use this view when investigating whether a behavior is isolated to one workflow or part of a broader system issue. Compare system-level signals with Invocation History before changing a workflow definition.
 
 ## Rate Limits
 

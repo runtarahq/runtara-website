@@ -2,43 +2,12 @@
 import { getCollection } from "astro:content";
 import Search from "astro-pagefind/components/Search";
 
-const docs = await getCollection("docs", ({ data }) => !data.draft);
-
-// Group docs by section
-const sections = docs.reduce(
-    (acc, doc) => {
-        const section = doc.data.section || "Other";
-        if (!acc[section]) {
-            acc[section] = [];
-        }
-        acc[section].push(doc);
-        return acc;
-    },
-    {} as Record<string, typeof docs>,
-);
-
-// Sort docs within each section by order
-Object.keys(sections).forEach((section) => {
-    sections[section].sort(
-        (a, b) => (a.data.order || 999) - (b.data.order || 999),
-    );
-});
-
-// Define section order
-const sectionOrder = [
-    "Overview",
-    "Runtara Platform",
-    "Durable Execution",
-    "Distributed Durable Execution",
-    "Managed Runtime Environments",
-    "Durable Workflows",
-    "Step Types",
-    "Agents",
-    "Examples",
-    "Guides",
-    "Other",
-];
-const orderedSections = sectionOrder.filter((s) => sections[s]);
+const docs = (
+    await getCollection(
+        "docs",
+        ({ data }) => !data.draft && data.section === "Runtara Platform",
+    )
+).sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
 
 const currentPath = Astro.url.pathname;
 ---
@@ -48,7 +17,7 @@ const currentPath = Astro.url.pathname;
         <Search
             showImages={false}
             showSubResults={true}
-            placeholder="Search docs..."
+            placeholder="Search user guide..."
         />
         <div class="search-shortcut">
             <kbd>Cmd</kbd><span>+</span><kbd>K</kbd>
@@ -56,33 +25,31 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <nav class="sidebar-nav">
-        {
-            orderedSections.map((section) => (
-                <div class="nav-section">
-                    <h3 class="nav-section-title">{section}</h3>
-                    <ul class="nav-list">
-                        {sections[section].map((doc) => (
-                            <li>
-                                <a
-                                    href={`/docs/${doc.id}`}
-                                    class:list={[
-                                        {
-                                            active:
-                                                currentPath ===
-                                                    `/docs/${doc.id}` ||
-                                                currentPath ===
-                                                    `/docs/${doc.id}.html`,
-                                        },
-                                    ]}
-                                >
-                                    {doc.data.title}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))
-        }
+        <div class="nav-section">
+            <h3 class="nav-section-title">User Guide</h3>
+            <ul class="nav-list">
+                {
+                    docs.map((doc) => (
+                        <li>
+                            <a
+                                href={`/docs/${doc.id}`}
+                                class:list={[
+                                    {
+                                        active:
+                                            currentPath ===
+                                                `/docs/${doc.id}` ||
+                                            currentPath ===
+                                                `/docs/${doc.id}.html`,
+                                    },
+                                ]}
+                            >
+                                {doc.data.title}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
     </nav>
 </aside>
 

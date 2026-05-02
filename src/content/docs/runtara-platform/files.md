@@ -22,7 +22,7 @@ Open Files from the sidebar to browse stored assets. A file may be used as:
 
 ## Storage Connections
 
-File behavior depends on configured storage connections. The demo organization includes a default S3-compatible storage connection. See [Connections](/docs/runtara-platform/connections) for how default file storage is managed.
+File behavior depends on configured storage connections. See [Connections](/docs/runtara-platform/connections) for how default file storage is managed.
 
 ## File References in Workflows
 

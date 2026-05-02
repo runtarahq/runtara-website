@@ -14,13 +14,7 @@ Workflows define the automation logic Runtara runs. A workflow can be started ma
 
 ## Find a Workflow
 
-Open Workflows from the sidebar. The root page shows folders and workflows. Demo folders group workflows by operational area:
-
-- Customer Operations
-- Commerce Operations
-- Executive Reporting
-- Data Operations
-- Platform Operations
+Open Workflows from the sidebar. The root page shows folders and workflows. Use folders to group workflows by operational area, team, lifecycle stage, or ownership boundary.
 
 Open a workflow card to view or edit its definition.
 
@@ -30,7 +24,7 @@ Use New workflow from the Workflows page, then provide the workflow name and bas
 
 ![Create workflow](/docs/runtara-platform/images/workflow-create.png)
 
-After creation, the workflow opens in the editor. Use a clear business name, such as Order Fulfillment Exception Triage, rather than a test name. Good names make triggers, reports, and invocation history easier to understand later.
+After creation, the workflow opens in the editor. Use a clear business name that describes the process, outcome, or owner. Good names make triggers, reports, and invocation history easier to understand later.
 
 ## Use the Editor
 

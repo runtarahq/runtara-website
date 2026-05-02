@@ -21,6 +21,8 @@ API keys allow external clients to call Runtara:
 - Replace a key when ownership or access requirements change.
 - Delete unused keys when an integration is retired.
 
+Treat API keys as production credentials. Use separate keys for separate callers when ownership, rotation schedule, or access requirements differ.
+
 ## Billing and Account Controls
 
 Depending on deployment configuration, the sidebar may expose billing or account-management controls. These controls are separate from workflow configuration and should be handled by an administrator.

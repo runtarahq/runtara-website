@@ -3,31 +3,26 @@ import { getCollection } from 'astro:content';
 
 const SITE_URL = 'https://runtara.com';
 
-const SITE_DESCRIPTION = `Runtara is a workflow engine that compiles JSON workflows and Rust code directly to native binaries with durable execution, automatic checkpointing, and distributed coordination capabilities.`;
+const SITE_DESCRIPTION = `Runtara is a secure AI automation platform for building, running, and operating workflow automations with integrations, reports, files, analytics, and managed operational data.`;
 
 const SITE_DETAILS = `Runtara provides:
-- Native compilation without interpreter overhead
-- Durable checkpoints that snapshot execution state
-- Deterministic replay for consistent execution
-- Distributed execution across multiple nodes and regions
-- Managed deployment through Runtara Cloud or self-hosted options`;
+- Workflow automation for operational processes
+- Triggers for HTTP, scheduled, and channel-driven starts
+- Reusable connections for provider credentials and shared integrations
+- Reports, files, analytics, and invocation history for operational review
+- Account-level controls such as API keys and platform settings`;
 
-const KEY_CONCEPTS = `## Key Concepts
+const KEY_CONCEPTS = `## User Guide Areas
 
-- **#[durable] macro**: Rust attribute that wraps functions with retry and checkpointing logic
-- **Idempotency keys**: First parameter to durable functions ensuring operations are safely retryable
-- **Checkpointing**: Automatic state persistence enabling resume from any point after failures
-- **Connection Service**: External component for centralized credential management and rate limit coordination
-- **Native binaries**: Workflows compile to executables with minimal runtime dependencies`;
+- **Workflows**: Build, validate, run, version, and inspect workflow automations
+- **Triggers**: Start workflows from HTTP calls, schedules, and channel events
+- **Connections**: Configure provider credentials, file storage, and shared integrations
+- **Reports and files**: Review operational outputs and generated artifacts
+- **Analytics and invocation history**: Monitor usage, executions, failures, and rate limits`;
 
 // Define section order for consistent output
 const SECTION_ORDER = [
-  'Overview',
   'Runtara Platform',
-  'Durable Execution',
-  'Distributed Durable Execution',
-  'Durable Workflows',
-  'Managed Runtime Environments',
 ];
 
 export const GET: APIRoute = async () => {

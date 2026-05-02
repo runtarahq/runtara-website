@@ -2,64 +2,26 @@
 import { getCollection } from "astro:content";
 import DocsLayout from "../../layouts/DocsLayout.astro";
 
-const docs = await getCollection("docs", ({ data }) => !data.draft);
-
-const sections = docs.reduce(
-    (acc, doc) => {
-        const section = doc.data.section || "Other";
-        acc[section] = acc[section] || [];
-        acc[section].push(doc);
-        return acc;
-    },
-    {} as Record<string, typeof docs>,
-);
-
-Object.values(sections).forEach((sectionDocs) => {
-    sectionDocs.sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
-});
-
-const runtaraPlatformDocs = sections["Runtara Platform"] || [];
-const conceptSections = [
-    {
-        title: "Durable Execution",
-        href: "/docs/durable-execution",
-        description:
-            "Understand the durable execution model, retries, checkpointing, replay, and idempotency.",
-    },
-    {
-        title: "Distributed Durable Execution",
-        href: "/docs/distributed-durable-execution",
-        description:
-            "Scale durable execution across multiple nodes, processes, and regions.",
-    },
-    {
-        title: "Managed Runtime Environments",
-        href: "/docs/managed-runtime-environments",
-        description:
-            "Deploy and operate runtimes without owning every infrastructure detail.",
-    },
-    {
-        title: "Durable Workflows",
-        href: "/docs/durable-workflows",
-        description:
-            "Build longer-running workflow automations with external systems and managed credentials.",
-    },
-];
+const runtaraPlatformDocs = (
+    await getCollection(
+        "docs",
+        ({ data }) => !data.draft && data.section === "Runtara Platform",
+    )
+).sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
 ---
 
 <DocsLayout
-    title="Documentation"
-    description="Runtara documentation for the Runtara Platform app, durable execution concepts, and workflow runtime primitives."
-    section="Overview"
-    tags={["docs", "runtara-platform", "durable-execution"]}
+    title="Runtara Platform User Guide"
+    description="User guide for the Runtara Platform app, including workflows, triggers, connections, reports, files, analytics, and settings."
+    section="Runtara Platform"
+    tags={["docs", "runtara-platform", "user-guide"]}
 >
     <section class="docs-hero">
         <p class="docs-eyebrow">Runtara Docs</p>
-        <h1>Documentation</h1>
+        <h1>Runtara Platform User Guide</h1>
         <p>
-            Guides for using Runtara Platform end to end, plus technical docs for
-            durable execution, workflow runtime behavior, and integration
-            boundaries.
+            Product docs for operators, builders, and analysts using the
+            Runtara Platform web application.
         </p>
     </section>
 
@@ -67,8 +29,8 @@ const conceptSections = [
         <div class="section-heading">
             <h2>Runtara Platform User Guide</h2>
             <p>
-                Product docs for operators, builders, and analysts using the
-                Runtara Platform web application.
+                Start with the product overview, then use the focused pages as
+                references while building and operating automations.
             </p>
         </div>
         <div class="docs-card-grid">
@@ -77,26 +39,6 @@ const conceptSections = [
                     <a class="docs-card" href={`/docs/${doc.id}`}>
                         <span>{doc.data.title}</span>
                         {doc.data.description && <p>{doc.data.description}</p>}
-                    </a>
-                ))
-            }
-        </div>
-    </section>
-
-    <section class="docs-hub-section">
-        <div class="section-heading">
-            <h2>Technical Concepts</h2>
-            <p>
-                Lower-level explanations for Runtara's durability model,
-                runtime architecture, and workflow integration patterns.
-            </p>
-        </div>
-        <div class="docs-card-grid">
-            {
-                conceptSections.map((section) => (
-                    <a class="docs-card" href={section.href}>
-                        <span>{section.title}</span>
-                        <p>{section.description}</p>
                     </a>
                 ))
             }

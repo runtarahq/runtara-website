@@ -20,8 +20,6 @@ Runtara supports these common trigger patterns:
 - Schedule: run a workflow on a recurring schedule.
 - Channel or event: start a workflow from an integrated application event.
 
-The demo organization includes triggers for a daily executive digest, support triage, inventory refresh, and Slack triage.
-
 ## Create a Trigger
 
 Open Triggers, then choose New trigger.

@@ -59,20 +59,21 @@ Checks:
 4. Refresh the report viewer.
 5. If Explore is empty, check whether the report exposes semantic datasets.
 
-## Charts Look Flat or Unexpected
+## Report Results Look Wrong
 
 Symptoms:
 
-- Charts show perfectly uniform bars.
-- Pie slices are nearly identical.
-- Reports do not surface meaningful outliers.
+- A chart, metric, or table shows unexpected values.
+- A report appears to use the wrong grouping or aggregate.
+- A report updates but still does not match the intended source data.
 
 Checks:
 
-1. Inspect the underlying object records.
-2. Confirm category, quantity, price, status, and date fields have realistic variation.
-3. Confirm the report is grouping and aggregating the intended fields.
-4. Refresh the report after updating source data.
+1. Open the report editor.
+2. Confirm the report uses the intended source schema.
+3. Check each affected block's filters, grouping field, aggregate, value field, sort order, and limit.
+4. Confirm the source object type has current records for the fields used by the block.
+5. Refresh the report viewer after changing report configuration or source records.
 
 ## Connection Fails
 
