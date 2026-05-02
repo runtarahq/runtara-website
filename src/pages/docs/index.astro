@@ -74,7 +74,7 @@ const conceptSections = [
         <div class="docs-card-grid">
             {
                 runtaraPlatformDocs.map((doc) => (
-                    <a class="docs-card" href={`/docs/${doc.slug}`}>
+                    <a class="docs-card" href={`/docs/${doc.id}`}>
                         <span>{doc.data.title}</span>
                         {doc.data.description && <p>{doc.data.description}</p>}
                     </a>

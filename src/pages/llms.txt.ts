@@ -49,7 +49,7 @@ export const GET: APIRoute = async () => {
   // Generate documentation links with section context for generic titles
   const docLinks = sortedDocs
     .map((doc) => {
-      const url = `${SITE_URL}/docs/${doc.slug}`;
+      const url = `${SITE_URL}/docs/${doc.id}`;
       const section = doc.data.section || '';
       // Use section name for generic titles like "Introduction"
       const title =

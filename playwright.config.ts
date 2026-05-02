@@ -6,13 +6,13 @@ export default defineConfig({
         ? [["list"], ["html", { open: "never" }]]
         : [["list"]],
     use: {
-        baseURL: "http://127.0.0.1:4321",
+        baseURL: "http://127.0.0.1:4322",
         trace: "retain-on-failure",
     },
     webServer: {
-        command: "npm run preview -- --host 127.0.0.1",
-        url: "http://127.0.0.1:4321",
-        reuseExistingServer: !process.env.CI,
+        command: "npm run preview -- --host 127.0.0.1 --port 4322",
+        url: "http://127.0.0.1:4322",
+        reuseExistingServer: false,
         stdout: "pipe",
         stderr: "pipe",
     },

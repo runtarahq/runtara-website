@@ -64,14 +64,14 @@ const currentPath = Astro.url.pathname;
                         {sections[section].map((doc) => (
                             <li>
                                 <a
-                                    href={`/docs/${doc.slug}`}
+                                    href={`/docs/${doc.id}`}
                                     class:list={[
                                         {
                                             active:
                                                 currentPath ===
-                                                    `/docs/${doc.slug}` ||
+                                                    `/docs/${doc.id}` ||
                                                 currentPath ===
-                                                    `/docs/${doc.slug}.html`,
+                                                    `/docs/${doc.id}.html`,
                                         },
                                     ]}
                                 >
