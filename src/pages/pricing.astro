@@ -1,0 +1,280 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const cloudUrl = "https://tally.so/r/81qE5o";
+
+const currencies = [
+    { code: "USD", symbol: "$", suffix: "", label: "USD" },
+    { code: "EUR", symbol: "€", suffix: "", label: "EUR" },
+    { code: "PLN", symbol: "", suffix: " zł", label: "PLN" },
+];
+
+const tiers = [
+    {
+        name: "Starter",
+        description: "For individuals and small teams getting started with automation.",
+        prices: { USD: "60", EUR: "50", PLN: "200" },
+        cta: "Get started",
+        featured: false,
+        features: [
+            "Up to 100 workflow runs/month",
+            "1 team member",
+            "Daily automated runs",
+            "Webhooks",
+            "Access to all standard integrations",
+            "Managed database",
+            "Email support with 48h response",
+        ],
+    },
+    {
+        name: "Premium",
+        description: "For growing teams ready to scale production automation.",
+        prices: { USD: "250", EUR: "215", PLN: "860" },
+        cta: "Get started",
+        featured: true,
+        features: [
+            "Everything in Starter",
+            "Unlimited workflow runs",
+            "Invite up to 3 team members",
+            "Premium integrations",
+            "Priority email support with 24h response",
+            "Basic analytics",
+        ],
+    },
+    {
+        name: "Enterprise",
+        description: "For organizations running large-scale or high-frequency operations.",
+        prices: { USD: "2500", EUR: "2100", PLN: "8400" },
+        cta: "Talk to us",
+        featured: false,
+        features: [
+            "Everything in Premium",
+            "Unlimited workflow runs",
+            "Unlimited team members",
+            "Enterprise integrations",
+            "Dedicated support with 4h response",
+            "SOC 2 compliance",
+            "SAML SSO",
+            "Audit logs",
+            "Custom retention policies",
+            "Custom deployment options",
+        ],
+    },
+];
+
+const faqs = [
+    {
+        question: "What counts as a workflow run?",
+        answer:
+            "A workflow run is one execution of an automation workflow. Starter includes up to 100 runs per month. Premium and Enterprise include unlimited runs, with capacity bounded by invocation time and operational usage.",
+    },
+    {
+        question: "Can I change plans?",
+        answer:
+            "Yes. Plan changes can be handled at the start of the next billing cycle.",
+    },
+    {
+        question: "Do you offer a trial?",
+        answer:
+            "All plans include a 30-day money-back guarantee, so teams can try the service and request a refund if it is not a fit.",
+    },
+    {
+        question: "Can you set up automation for our organization?",
+        answer:
+            "Enterprise customers can use managed service support for organization-wide automation setup. Terms apply.",
+    },
+];
+---
+
+<BaseLayout
+    title="Pricing | Runtara"
+    description="Simple monthly pricing for Runtara automation workflows, integrations, managed data, analytics, and enterprise deployment options."
+>
+    <Header />
+    <main class="pricing-page">
+        <section class="pricing-hero">
+            <div class="container pricing-hero-inner">
+                <div>
+                    <h1>Simple pricing for secure AI automation.</h1>
+                    <p>
+                        Start small, then scale Runtara across more workflows,
+                        users, integrations, and operational environments.
+                    </p>
+                </div>
+                <div class="currency-switcher" aria-label="Currency">
+                    {
+                        currencies.map((currency, index) => (
+                            <button
+                                class:list={[
+                                    "currency-option",
+                                    { active: index === 0 },
+                                ]}
+                                type="button"
+                                data-currency={currency.code}
+                            >
+                                {currency.label}
+                            </button>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-section">
+            <div class="container pricing-grid">
+                {
+                    tiers.map((tier) => (
+                        <article
+                            class:list={[
+                                "pricing-card",
+                                { featured: tier.featured },
+                            ]}
+                        >
+                            {tier.featured && (
+                                <span class="pricing-recommended">
+                                    Recommended
+                                </span>
+                            )}
+                            <div class="pricing-card-head">
+                                <h2>{tier.name}</h2>
+                                <p>{tier.description}</p>
+                            </div>
+                            <div
+                                class="pricing-price"
+                                data-prices={JSON.stringify(tier.prices)}
+                            >
+                                <span class="pricing-symbol">$</span>
+                                <span class="pricing-amount">
+                                    {tier.prices.USD}
+                                </span>
+                                <span class="pricing-suffix"></span>
+                                <span class="pricing-period">/month</span>
+                            </div>
+                            <a
+                                href={cloudUrl}
+                                class:list={[
+                                    "btn",
+                                    tier.featured
+                                        ? "btn-primary"
+                                        : "btn-secondary",
+                                ]}
+                            >
+                                {tier.cta}
+                            </a>
+                            <ul>
+                                {tier.features.map((feature) => (
+                                    <li>{feature}</li>
+                                ))}
+                            </ul>
+                        </article>
+                    ))
+                }
+            </div>
+            <div class="container pricing-note">
+                <p>
+                    Have custom requirements? Enterprise plans can include
+                    tailored deployment, retention, integration, and support
+                    arrangements.
+                </p>
+            </div>
+        </section>
+
+        <section class="pricing-faq">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Frequently asked questions.</h2>
+                </div>
+                <div class="faq-list">
+                    {
+                        faqs.map((faq) => (
+                            <article class="faq-item">
+                                <h3>{faq.question}</h3>
+                                <p>{faq.answer}</p>
+                            </article>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta visual-final">
+            <div class="container">
+                <h2>Ready to build with Runtara?</h2>
+                <p>
+                    Choose a plan and start connecting workflows, data,
+                    integrations, reports, and operations in one place.
+                </p>
+                <div class="cta-group">
+                    <a href={cloudUrl} class="btn btn-primary">Get started</a>
+                    <a href="/docs/runtara-platform" class="btn btn-secondary"
+                        >Documentation</a
+                    >
+                </div>
+            </div>
+        </section>
+    </main>
+    <SiteFooter />
+
+    <script>
+        type CurrencyCode = "USD" | "EUR" | "PLN";
+
+        const currencyMeta = {
+            USD: { symbol: "$", suffix: "" },
+            EUR: { symbol: "€", suffix: "" },
+            PLN: { symbol: "", suffix: " zł" },
+        };
+
+        const currencyButtons = Array.from(
+            document.querySelectorAll<HTMLButtonElement>(".currency-option"),
+        );
+        const priceBlocks = Array.from(
+            document.querySelectorAll<HTMLElement>(".pricing-price"),
+        );
+
+        function isCurrency(value: string | null): value is CurrencyCode {
+            return value === "USD" || value === "EUR" || value === "PLN";
+        }
+
+        function setCurrency(currency: CurrencyCode) {
+            currencyButtons.forEach((button) => {
+                button.classList.toggle(
+                    "active",
+                    button.getAttribute("data-currency") === currency,
+                );
+            });
+
+            priceBlocks.forEach((block) => {
+                if (!block.dataset.prices) return;
+
+                const prices = JSON.parse(block.dataset.prices) as Record<
+                    CurrencyCode,
+                    string
+                >;
+                const symbol = block.querySelector<HTMLElement>(
+                    ".pricing-symbol",
+                );
+                const amount = block.querySelector<HTMLElement>(
+                    ".pricing-amount",
+                );
+                const suffix = block.querySelector<HTMLElement>(
+                    ".pricing-suffix",
+                );
+
+                if (!symbol || !amount || !suffix) return;
+
+                symbol.textContent = currencyMeta[currency].symbol;
+                amount.textContent = prices[currency];
+                suffix.textContent = currencyMeta[currency].suffix;
+            });
+        }
+
+        currencyButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const currency = button.getAttribute("data-currency");
+                if (isCurrency(currency)) setCurrency(currency);
+            });
+        });
+    </script>
+</BaseLayout>

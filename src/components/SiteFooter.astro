@@ -1,4 +1,9 @@
 ---
+const productLinks = [
+  { href: "/pricing", label: "Pricing" },
+  { href: "/docs", label: "Docs" },
+];
+
 const legalLinks = [
   { href: "/legal/terms", label: "Terms" },
   { href: "/legal/privacy", label: "Privacy" },
@@ -14,12 +19,21 @@ const legalLinks = [
       </p>
       <p class="footer-subtext">Secure AI automation runtime and platform.</p>
     </div>
-    <nav class="site-footer-links" aria-label="Legal">
-      {
-        legalLinks.map((link) => (
-          <a href={link.href}>{link.label}</a>
-        ))
-      }
-    </nav>
+    <div class="site-footer-navs">
+      <nav class="site-footer-links" aria-label="Product">
+        {
+          productLinks.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))
+        }
+      </nav>
+      <nav class="site-footer-links" aria-label="Legal">
+        {
+          legalLinks.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))
+        }
+      </nav>
+    </div>
   </div>
 </footer>
