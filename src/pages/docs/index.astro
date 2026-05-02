@@ -1,4 +1,196 @@
 ---
-// Redirect to the first doc page (overview)
-return Astro.redirect("/docs/overview");
+import { getCollection } from "astro:content";
+import DocsLayout from "../../layouts/DocsLayout.astro";
+
+const docs = await getCollection("docs", ({ data }) => !data.draft);
+
+const sections = docs.reduce(
+    (acc, doc) => {
+        const section = doc.data.section || "Other";
+        acc[section] = acc[section] || [];
+        acc[section].push(doc);
+        return acc;
+    },
+    {} as Record<string, typeof docs>,
+);
+
+Object.values(sections).forEach((sectionDocs) => {
+    sectionDocs.sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
+});
+
+const runtaraPlatformDocs = sections["Runtara Platform"] || [];
+const conceptSections = [
+    {
+        title: "Durable Execution",
+        href: "/docs/durable-execution",
+        description:
+            "Understand the durable execution model, retries, checkpointing, replay, and idempotency.",
+    },
+    {
+        title: "Distributed Durable Execution",
+        href: "/docs/distributed-durable-execution",
+        description:
+            "Scale durable execution across multiple nodes, processes, and regions.",
+    },
+    {
+        title: "Managed Runtime Environments",
+        href: "/docs/managed-runtime-environments",
+        description:
+            "Deploy and operate runtimes without owning every infrastructure detail.",
+    },
+    {
+        title: "Durable Workflows",
+        href: "/docs/durable-workflows",
+        description:
+            "Build longer-running workflow automations with external systems and managed credentials.",
+    },
+];
 ---
+
+<DocsLayout
+    title="Documentation"
+    description="Runtara documentation for the Runtara Platform app, durable execution concepts, and workflow runtime primitives."
+    section="Overview"
+    tags={["docs", "runtara-platform", "durable-execution"]}
+>
+    <section class="docs-hero">
+        <p class="docs-eyebrow">Runtara Docs</p>
+        <h1>Documentation</h1>
+        <p>
+            Guides for using Runtara Platform end to end, plus technical docs for
+            durable execution, workflow runtime behavior, and integration
+            boundaries.
+        </p>
+    </section>
+
+    <section class="docs-hub-section">
+        <div class="section-heading">
+            <h2>Runtara Platform User Guide</h2>
+            <p>
+                Product docs for operators, builders, and analysts using the
+                Runtara Platform web application.
+            </p>
+        </div>
+        <div class="docs-card-grid">
+            {
+                runtaraPlatformDocs.map((doc) => (
+                    <a class="docs-card" href={`/docs/${doc.slug}`}>
+                        <span>{doc.data.title}</span>
+                        {doc.data.description && <p>{doc.data.description}</p>}
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="docs-hub-section">
+        <div class="section-heading">
+            <h2>Technical Concepts</h2>
+            <p>
+                Lower-level explanations for Runtara's durability model,
+                runtime architecture, and workflow integration patterns.
+            </p>
+        </div>
+        <div class="docs-card-grid">
+            {
+                conceptSections.map((section) => (
+                    <a class="docs-card" href={section.href}>
+                        <span>{section.title}</span>
+                        <p>{section.description}</p>
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+</DocsLayout>
+
+<style>
+    .docs-hero {
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .docs-eyebrow {
+        margin-bottom: 0.75rem;
+        color: var(--color-accent);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .docs-hero h1 {
+        margin-bottom: 1rem;
+    }
+
+    .docs-hero p:last-child {
+        max-width: 680px;
+        margin-bottom: 0;
+        color: var(--color-text-secondary);
+    }
+
+    .docs-hub-section {
+        margin: 2.5rem 0;
+    }
+
+    .section-heading {
+        margin-bottom: 1.25rem;
+    }
+
+    .section-heading h2 {
+        margin-top: 0;
+    }
+
+    .section-heading p {
+        max-width: 680px;
+        color: var(--color-text-secondary);
+    }
+
+    .docs-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .docs-card {
+        display: block;
+        min-height: 132px;
+        padding: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        background: var(--color-bg-secondary);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        transition:
+            border-color 0.15s,
+            background 0.15s,
+            transform 0.15s;
+    }
+
+    .docs-card:hover {
+        border-color: var(--color-text-muted);
+        background: var(--color-bg-tertiary);
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+
+    .docs-card span {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--color-text-primary);
+        font-weight: 600;
+    }
+
+    .docs-card p {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.55;
+    }
+
+    @media (max-width: 720px) {
+        .docs-card-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

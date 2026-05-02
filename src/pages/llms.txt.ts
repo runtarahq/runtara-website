@@ -23,6 +23,7 @@ const KEY_CONCEPTS = `## Key Concepts
 // Define section order for consistent output
 const SECTION_ORDER = [
   'Overview',
+  'Runtara Platform',
   'Durable Execution',
   'Distributed Durable Execution',
   'Durable Workflows',

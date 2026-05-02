@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: Get started with Runtara - durable workflows compiled to native binaries
+description: Get started with Runtara durable workflows compiled to native binaries
 section: Overview
 order: 1
 ---

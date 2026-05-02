@@ -6,13 +6,26 @@ import DocsSidebar from '../components/DocsSidebar.astro';
 interface Props {
   title: string;
   description?: string;
+  section?: string;
+  product?: string;
+  tags?: string[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, section, product, tags = [] } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | Runtara Docs`} description={description}>
   <Header />
+  <div class="pagefind-metadata" data-pagefind-ignore>
+    <span data-pagefind-meta="title">{title}</span>
+    {description && <span data-pagefind-meta="description">{description}</span>}
+    {section && <span data-pagefind-meta="section">{section}</span>}
+    {product && <span data-pagefind-meta="product">{product}</span>}
+    <span data-pagefind-filter="type">docs</span>
+    {section && <span data-pagefind-filter="section">{section}</span>}
+    {product && <span data-pagefind-filter="product">{product}</span>}
+    {tags.map((tag) => <span data-pagefind-filter="tag">{tag}</span>)}
+  </div>
   <div class="docs-layout">
     <DocsSidebar />
     <main class="docs-content" data-pagefind-body>
@@ -27,6 +40,10 @@ const { title, description } = Astro.props;
   .docs-layout {
     display: flex;
     min-height: calc(100vh - 57px);
+  }
+
+  .pagefind-metadata {
+    display: none;
   }
 
   .docs-content {

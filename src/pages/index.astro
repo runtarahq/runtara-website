@@ -1,287 +1,381 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 
-const codeExample = `{
-  <span class="keyword">"name"</span>: <span class="string">"support-agent"</span>,
-  <span class="keyword">"steps"</span>: [
+const githubUrl = "https://github.com/runtarahq/runtara";
+const cloudUrl = "https://tally.so/r/81qE5o";
+
+const showcasePanels = [
     {
-      <span class="keyword">"id"</span>: <span class="string">"triage"</span>,
-      <span class="keyword">"type"</span>: <span class="type">"AiAgent"</span>,
-      <span class="keyword">"connection"</span>: <span class="string">"conn_openai_gpt4o"</span>,
-      <span class="keyword">"systemPrompt"</span>: <span class="string">"Triage tickets. Look up customers and issue refunds."</span>,
-      <span class="keyword">"maxIterations"</span>: <span class="number">10</span>
+        title: "Workflow workspace",
+        body: "Organize automations by operational area and keep builders focused on the process they own.",
+        image: "/showcase/images/01-workflows-organized-operations.png",
+        alt: "Runtara workflow workspace organized by business area",
     },
     {
-      <span class="keyword">"id"</span>: <span class="string">"lookup_customer"</span>,
-      <span class="keyword">"type"</span>: <span class="type">"Http"</span>,
-      <span class="keyword">"connection"</span>: <span class="string">"conn_crm"</span>,
-      <span class="keyword">"url"</span>: <span class="string">"/customers/:id"</span>
+        title: "Trigger catalog",
+        body: "Start workflows from schedules, HTTP calls, and event-driven entry points without duplicating logic.",
+        image: "/showcase/images/03-trigger-automation-catalog.png",
+        alt: "Runtara trigger automation catalog",
     },
     {
-      <span class="keyword">"id"</span>: <span class="string">"issue_refund"</span>,
-      <span class="keyword">"type"</span>: <span class="type">"Http"</span>,
-      <span class="keyword">"connection"</span>: <span class="string">"conn_stripe"</span>,
-      <span class="keyword">"method"</span>: <span class="string">"POST"</span>,
-      <span class="keyword">"url"</span>: <span class="string">"/v1/refunds"</span>
-    }
-  ],
-  <span class="keyword">"edges"</span>: [
-    { <span class="keyword">"from"</span>: <span class="string">"triage"</span>, <span class="keyword">"to"</span>: <span class="string">"lookup_customer"</span>, <span class="keyword">"label"</span>: <span class="string">"lookup_customer"</span> },
-    { <span class="keyword">"from"</span>: <span class="string">"triage"</span>, <span class="keyword">"to"</span>: <span class="string">"issue_refund"</span>, <span class="keyword">"label"</span>: <span class="string">"issue_refund"</span> }
-  ]
-}`;
+        title: "Connections",
+        body: "Manage provider credentials, storage targets, and shared integrations outside workflow definitions.",
+        image: "/showcase/images/04-integration-connections.png",
+        alt: "Runtara integration connections catalog",
+    },
+];
+
+const capabilityRows = [
+    {
+        title: "Sandboxed agent runs",
+        body: "Workflow logic executes inside WebAssembly isolation with no raw filesystem, network, or credential access.",
+    },
+    {
+        title: "Credential mediation",
+        body: "Connections stay server-side. The runtime injects credentials at the host boundary instead of exposing secrets to agents.",
+    },
+    {
+        title: "Durable checkpoints",
+        body: "Long-running agent loops checkpoint after tool calls, resume after crashes, and avoid replaying completed work.",
+    },
+    {
+        title: "Operational visibility",
+        body: "Reports, invocation history, analytics, files, and object data give teams a live surface for production automation.",
+    },
+];
 ---
 
-<BaseLayout title="Runtara — Secure AI Agent Orchestration" description="Open-source platform that compiles AI agent workflows to sandboxed WebAssembly. Durable execution with checkpoint-based crash recovery and credential isolation.">
-	<div class="grid-bg"></div>
-	<div class="orb"></div>
-	<div class="orb orb-2"></div>
+<BaseLayout
+    title="Runtara - End-to-End AI Automation"
+    description="Runtara Platform combines secure AI workflow automation, integrations, durable execution, reports, analytics, and operational data in one product."
+>
+    <div class="grid-bg"></div>
+    <div class="orb"></div>
+    <div class="orb orb-2"></div>
 
-	<div class="container">
-		<header>
-			<a href="/" class="logo"><img src="/runtara-final.svg" alt="Runtara" class="logo-img" /></a>
-			<div class="header-right">
-				<a href="https://github.com/runtarahq/runtara" class="header-github" aria-label="GitHub">
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-					</svg>
-				</a>
-				<ThemeToggle />
-			</div>
-		</header>
+    <div class="container">
+        <header>
+            <a href="/" class="logo"
+                ><img
+                    src="/runtara-final.svg"
+                    alt="Runtara"
+                    class="logo-img"
+                /></a
+            >
+            <div class="header-right">
+                <a href="/docs" class="header-docs">Docs</a>
+                <a href={githubUrl} class="header-github" aria-label="GitHub">
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                        ></path>
+                    </svg>
+                </a>
+                <ThemeToggle />
+            </div>
+        </header>
+    </div>
 
-		<section class="hero">
-			<h1 class="fade-in fade-in-delay-1">
-				Run AI agents securely.<br />
-			</h1>
-			<p class="hero-sub fade-in fade-in-delay-2">
-				AI agent orchestration on WebAssembly.
-			</p>
-			<div class="cta-group fade-in fade-in-delay-3">
-				<a href="https://tally.so/r/81qE5o" class="btn btn-primary">Runtara Cloud</a>
-				<a href="https://github.com/runtarahq/runtara" class="btn btn-secondary">
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-					</svg>
-					GitHub
-				</a>
-			</div>
-		</section>
+    <main class="landing">
+        <section class="visual-hero">
+            <div class="container hero-content">
+                <h1 class="fade-in fade-in-delay-1">
+                    Secure AI automation from workflow design to live
+                    operations.
+                </h1>
+                <p class="hero-sub fade-in fade-in-delay-2">
+                    Runtara Platform brings AI workflows, triggers, connections,
+                    operational data, reports, and execution history into one
+                    durable automation surface.
+                </p>
+                <div class="cta-group fade-in fade-in-delay-3">
+                    <a href={cloudUrl} class="btn btn-primary">Runtara Cloud</a>
+                    <a href="/docs/runtara-platform" class="btn btn-secondary"
+                        >Documentation</a
+                    >
+                    <a href={githubUrl} class="btn btn-ghost">
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                            ></path>
+                        </svg>
+                        Source code
+                    </a>
+                </div>
+                <div
+                    class="hero-proof fade-in fade-in-delay-3"
+                    aria-label="Runtara product coverage"
+                >
+                    <span>Workflows</span>
+                    <span>Triggers</span>
+                    <span>Connections</span>
+                    <span>Reports</span>
+                    <span>Analytics</span>
+                </div>
+            </div>
+            <div class="hero-screen" aria-hidden="true">
+                <img
+                    src="/showcase/images/hero-workflow-builder-crop.png"
+                    alt=""
+                    loading="eager"
+                    decoding="async"
+                />
+            </div>
+        </section>
 
-		<section class="problem" data-reveal>
-			<h2 class="section-title">AI agents are powerful.<br /><span>We make them safe.</span></h2>
-			<div class="problem-grid">
-				<div class="problem-item">
-					<h3>credential leaks</h3>
-					<p>Agents with tool access need API keys. A prompt injection or misbehaving agent can exfiltrate secrets and make unauthorized calls.</p>
-				</div>
-				<div class="problem-item">
-					<h3>lost context on crash</h3>
-					<p>Multi-turn agentic loops are long-running and fragile. A crash mid-loop loses all context, wastes tokens, and leaves inconsistent state.</p>
-				</div>
-				<div class="problem-item">
-					<h3>idle resource waste</h3>
-					<p>Agents sleeping between steps — waiting for approvals or scheduling future actions — hold processes and resources open for the entire duration.</p>
-				</div>
-				<div class="problem-item">
-					<h3>tenant cross-contamination</h3>
-					<p>Running agents for different customers on shared runtimes creates data leaks most workflow engines don't address.</p>
-				</div>
-			</div>
-		</section>
+        <section class="product-overview" data-reveal>
+            <div class="container">
+                <div class="section-heading">
+                    <h2>
+                        One workspace for building and operating AI automations.
+                    </h2>
+                    <p>
+                        Runtara is not just a workflow runner. It gives teams
+                        the product surface around automation: reusable
+                        integrations, structured data, report publishing, file
+                        handling, and execution observability.
+                    </p>
+                </div>
+                <div class="panel-row">
+                    {
+                        showcasePanels.map((panel) => (
+                            <article class="screenshot-panel">
+                                <img
+                                    src={panel.image}
+                                    alt={panel.alt}
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                                <div>
+                                    <h3>{panel.title}</h3>
+                                    <p>{panel.body}</p>
+                                </div>
+                            </article>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
 
-		<section class="features" id="features" data-reveal>
-			<h2 class="section-title">How Runtara solves it</h2>
-			<div class="features-grid">
-				<div class="feature">
-					<h3>WASM-sandboxed agents</h3>
-					<p>Workflows compile to WebAssembly and run in wasmtime. No filesystem, no raw network, no credential access. The sandbox enforces what agents can and cannot do.</p>
-				</div>
-				<div class="feature">
-					<h3>credential isolation</h3>
-					<p>API keys live in the connection service. A host proxy injects them at request time. Even a compromised agent cannot exfiltrate secrets.</p>
-				</div>
-				<div class="feature">
-					<h3>crash-proof agentic loops</h3>
-					<p>Every tool call is checkpointed. Crashes resume from the last step with full conversation history intact. No repeated API calls, no wasted tokens.</p>
-				</div>
-				<div class="feature">
-					<h3>compiled, not interpreted</h3>
-					<p>JSON workflows compile to WASM modules — immutable, versioned artifacts. Zero interpreter overhead, smaller attack surface than scripted engines.</p>
-				</div>
-				<div class="feature">
-					<h3>tenant isolation</h3>
-					<p>Each customer gets a fully isolated environment — own database, credentials, and runtime. No shared state, no cross-tenant risks.</p>
-				</div>
-				<div class="feature">
-					<h3>durable sleep</h3>
-					<p>Agents waiting for approvals or external events release all resources. The engine wakes them automatically when it's time — hours or days later.</p>
-				</div>
-			</div>
-		</section>
+        <section class="feature-showcase feature-showcase-large" data-reveal>
+            <div class="container showcase-grid">
+                <div class="showcase-copy">
+                    <h2>
+                        Build workflows as operational systems, not prompt
+                        chains.
+                    </h2>
+                    <p>
+                        Use timeline and canvas views to design agent steps,
+                        transformations, child workflows, waits, and completion
+                        paths. Problems, versions, and history stay close to the
+                        workflow definition.
+                    </p>
+                    <ul>
+                        <li>
+                            Readable workflow structure for builders and
+                            operators
+                        </li>
+                        <li>
+                            Manual, chat, scheduled, HTTP, and event-driven
+                            starts
+                        </li>
+                        <li>
+                            Validation before production triggers depend on the
+                            workflow
+                        </li>
+                    </ul>
+                </div>
+                <figure class="media-frame">
+                    <img
+                        src="/showcase/images/02-workflow-timeline-builder.png"
+                        alt="Runtara workflow timeline builder"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </figure>
+            </div>
+        </section>
 
-		<section class="code-section" data-reveal>
-			<h2 class="section-title">Define agent workflows as data</h2>
-			<p class="section-sub">JSON DSL compiles to sandboxed WASM. Tools are graph edges. Credentials stay server-side.</p>
-			<div class="code-editor">
-				<div class="code-editor-titlebar">
-					<div class="code-dots">
-						<div class="code-dot"></div>
-						<div class="code-dot"></div>
-						<div class="code-dot"></div>
-					</div>
-					<span class="code-editor-filename">support-agent.json</span>
-				</div>
-				<div class="code-editor-body">
-					<pre set:html={codeExample}></pre>
-				</div>
-			</div>
-		</section>
+        <section class="feature-showcase connected-systems" data-reveal>
+            <div class="container connected-systems-layout">
+                <div class="showcase-copy">
+                    <h2>Connect agents to the data and systems they need.</h2>
+                    <p>
+                        Model operational records inside Runtara, attach
+                        external providers through connections, and keep
+                        credentials out of workflow definitions.
+                    </p>
+                    <ul>
+                        <li>
+                            Object records for catalogs, inventory, suppliers,
+                            and support knowledge
+                        </li>
+                        <li>
+                            Provider connections for OpenAI, Slack, Shopify,
+                            storage, and more
+                        </li>
+                        <li>
+                            Default file storage and shared connection
+                            governance
+                        </li>
+                    </ul>
+                </div>
+                <div class="media-stack">
+                    <figure class="media-frame">
+                        <img
+                            src="/showcase/images/05-object-model-records.png"
+                            alt="Runtara object model records"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </figure>
+                    <figure class="media-frame media-frame-small">
+                        <img
+                            src="/showcase/images/04-integration-connections.png"
+                            alt="Runtara provider connections"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </figure>
+                </div>
+            </div>
+        </section>
 
-		<section class="how-it-works" data-reveal>
-			<h2 class="section-title">How it works</h2>
-			<div class="flow-grid">
-				<div class="flow-step">
-					<div class="flow-number">1</div>
-					<h3>define</h3>
-					<p>Write agent workflows as JSON DSL with steps, tools, and connections.</p>
-				</div>
-				<div class="flow-step">
-					<div class="flow-number">2</div>
-					<h3>compile</h3>
-					<p>Build to a standalone WASM module — immutable, versioned, reproducible.</p>
-				</div>
-				<div class="flow-step">
-					<div class="flow-number">3</div>
-					<h3>sandbox</h3>
-					<p>Run in wasmtime. No filesystem, no raw network. All I/O mediated by the host.</p>
-				</div>
-				<div class="flow-step">
-					<div class="flow-number">4</div>
-					<h3>execute</h3>
-					<p>AI agent calls tools via host proxy. Credentials injected at request time, invisible to agent code.</p>
-				</div>
-				<div class="flow-step">
-					<div class="flow-number">5</div>
-					<h3>checkpoint</h3>
-					<p>After each tool call: conversation history, tool results, and iteration count saved to database.</p>
-				</div>
-				<div class="flow-step">
-					<div class="flow-number">6</div>
-					<h3>recover</h3>
-					<p>Crash at any point? Relaunch from last checkpoint. No lost context, no repeated calls.</p>
-				</div>
-			</div>
-		</section>
+        <section class="feature-showcase" data-reveal>
+            <div class="container showcase-grid">
+                <div class="showcase-copy">
+                    <h2>
+                        Turn automation outputs into reports people can use.
+                    </h2>
+                    <p>
+                        Publish operational reports with narrative text,
+                        metrics, charts, tables, and reusable report definitions
+                        backed by Runtara object data.
+                    </p>
+                    <ul>
+                        <li>Report gallery for operators and stakeholders</li>
+                        <li>Chart, table, metric, and Markdown blocks</li>
+                        <li>
+                            Editable report definitions with schema-backed
+                            datasets
+                        </li>
+                    </ul>
+                </div>
+                <figure class="media-frame">
+                    <img
+                        src="/showcase/images/07-category-performance-dashboard.png"
+                        alt="Runtara category performance dashboard"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </figure>
+            </div>
+        </section>
 
-		<section class="comparison" data-reveal>
-			<h2 class="section-title">How Runtara compares</h2>
-			<div class="comparison-table-wrapper">
-				<table class="comparison-table">
-					<thead>
-						<tr>
-							<th></th>
-							<th class="highlight">Runtara</th>
-							<th>LangGraph</th>
-							<th>CrewAI</th>
-							<th>Temporal + LLM</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="row-label">Agent isolation</td>
-							<td class="highlight">WASM sandbox (enforced)</td>
-							<td>Optional (Pyodide)</td>
-							<td>Docker (optional)</td>
-							<td>Process-level</td>
-						</tr>
-						<tr>
-							<td class="row-label">Credential security</td>
-							<td class="highlight">Proxy injection</td>
-							<td>Manual</td>
-							<td>Manual</td>
-							<td>Manual</td>
-						</tr>
-						<tr>
-							<td class="row-label">Crash recovery</td>
-							<td class="highlight">Per-tool checkpoint</td>
-							<td>Optional checkpoint</td>
-							<td>Task replay</td>
-							<td>Event sourcing</td>
-						</tr>
-						<tr>
-							<td class="row-label">Tenant isolation</td>
-							<td class="highlight">Dedicated env</td>
-							<td>Application-level</td>
-							<td>Enterprise only</td>
-							<td>Namespaces</td>
-						</tr>
-						<tr>
-							<td class="row-label">Runtime</td>
-							<td class="highlight">Compiled WASM</td>
-							<td>Python / JS/TS</td>
-							<td>Python</td>
-							<td>Multi-language</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
+        <section class="operations-strip" data-reveal>
+            <div class="container">
+                <div class="section-heading">
+                    <h2>
+                        Know what ran, what changed, and where attention is
+                        needed.
+                    </h2>
+                    <p>
+                        Invocation history and analytics give operators a live
+                        view of workflow health, usage, rate limits, and
+                        execution trends.
+                    </p>
+                </div>
+                <div class="ops-media-grid">
+                    <figure class="media-frame">
+                        <img
+                            src="/showcase/images/09-invocation-history.png"
+                            alt="Runtara invocation history"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </figure>
+                    <figure class="media-frame">
+                        <img
+                            src="/showcase/images/10-usage-analytics.png"
+                            alt="Runtara usage analytics"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </figure>
+                </div>
+            </div>
+        </section>
 
-		<section class="use-cases" data-reveal>
-			<h2 class="section-title">Built for real workloads</h2>
-			<div class="use-cases-grid">
-				<div class="use-case">
-					<h3>autonomous support agents</h3>
-					<p>LLM triages tickets, looks up customer data, takes actions. Checkpoints after each step. Survives deploys without losing conversation state.</p>
-				</div>
-				<div class="use-case">
-					<h3>approval workflows with AI</h3>
-					<p>AI analyzes a request, produces a recommendation, sleeps until human approval — days later, resumes from checkpoint and executes the decision.</p>
-				</div>
-				<div class="use-case">
-					<h3>secure third-party AI</h3>
-					<p>Run customer-provided AI logic in WASM sandboxes within dedicated per-customer environments. No access to other tenants' data or credentials.</p>
-				</div>
-				<div class="use-case">
-					<h3>multi-agent collaboration</h3>
-					<p>Chain AI agent steps — one analyzes, one plans, one executes — each with different LLM providers and tool sets, all checkpointed independently.</p>
-				</div>
-			</div>
-		</section>
+        <section class="security-section" data-reveal>
+            <div class="container security-layout">
+                <div>
+                    <h2>Secure by runtime design.</h2>
+                    <p>
+                        Runtara combines a product surface for builders with
+                        runtime primitives for secure, durable AI automation.
+                    </p>
+                </div>
+                <div class="capability-list">
+                    {
+                        capabilityRows.map((row) => (
+                            <article class="capability-row">
+                                <h3>{row.title}</h3>
+                                <p>{row.body}</p>
+                            </article>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
 
-		<section class="final-cta" data-reveal>
-			<h2>Ready to run AI agents securely?</h2>
-			<p>Open-source. Self-hosted or cloud. Written in Rust.</p>
-			<div class="cta-group">
-				<a href="https://tally.so/r/81qE5o" class="btn btn-primary">Runtara Cloud</a>
-			<a href="https://github.com/runtarahq/runtara" class="btn btn-secondary">
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-					</svg>
-					GitHub
-				</a>
-			</div>
-		</section>
+        <section class="final-cta visual-final" data-reveal>
+            <div class="container">
+                <h2>Build the automation surface your agents need.</h2>
+                <p>
+                    Start with the Runtara Platform user guide, then connect
+                    workflows, data, reports, and operations in one place.
+                </p>
+                <div class="cta-group">
+                    <a href="/docs/runtara-platform" class="btn btn-primary"
+                        >Read the user guide</a
+                    >
+                    <a href={cloudUrl} class="btn btn-secondary"
+                        >Runtara Cloud</a
+                    >
+                </div>
+            </div>
+        </section>
 
-		<footer>
-			<p class="footer-text">
-				runtara — secure AI agent orchestration platform
-			</p>
-		</footer>
-	</div>
+        <SiteFooter />
+    </main>
 
-	<script>
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('revealed');
-					observer.unobserve(entry.target);
-				}
-			});
-		}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    <script>
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("revealed");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+        );
 
-		document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
-	</script>
+        document
+            .querySelectorAll("[data-reveal]")
+            .forEach((el) => observer.observe(el));
+    </script>
 </BaseLayout>

@@ -1,0 +1,25 @@
+---
+const legalLinks = [
+  { href: "/legal/terms", label: "Terms" },
+  { href: "/legal/privacy", label: "Privacy" },
+  { href: "/legal/dpa", label: "DPA" },
+];
+---
+
+<footer class="site-footer">
+  <div class="container site-footer-inner">
+    <div class="site-footer-copy">
+      <p class="footer-text">
+        <strong>Runtara</strong> is a product of SyncMyOrders Sp. z o.o.
+      </p>
+      <p class="footer-subtext">Secure AI automation runtime and platform.</p>
+    </div>
+    <nav class="site-footer-links" aria-label="Legal">
+      {
+        legalLinks.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>

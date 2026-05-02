@@ -1,0 +1,93 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/Header.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  lastUpdated?: string | Date;
+}
+
+const { title, description, lastUpdated } = Astro.props;
+const updatedAt = lastUpdated ? new Date(lastUpdated) : null;
+const formattedLastUpdated = updatedAt
+  ? new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(updatedAt)
+  : null;
+---
+
+<BaseLayout title={`${title} | Runtara Legal`} description={description}>
+  <Header />
+  <main class="legal-page">
+    <div class="container legal-container">
+      <header class="legal-header">
+        <p class="legal-eyebrow">Legal</p>
+        <h1>{title}</h1>
+        {description && <p class="legal-description">{description}</p>}
+        {formattedLastUpdated && (
+          <p class="legal-updated">Last updated {formattedLastUpdated}</p>
+        )}
+      </header>
+      <article class="prose legal-prose">
+        <slot />
+      </article>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: 4rem 0;
+  }
+
+  .legal-container {
+    max-width: 920px;
+  }
+
+  .legal-header {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-eyebrow {
+    margin-bottom: 0.75rem;
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .legal-header h1 {
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .legal-description {
+    max-width: 680px;
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .legal-updated {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .legal-prose {
+    max-width: none;
+  }
+</style>
